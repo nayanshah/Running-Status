@@ -38,6 +38,8 @@ function parseStatus(data) {
     } else {
         $('#result').html('<b>Some error occured while processing the request.</b>');
     }
+    $('#running-status').hide();
+    $('#result').show();
 };
 
 /**
@@ -48,7 +50,9 @@ function parseStatus(data) {
 function RunningStatus() {
     var inputs = ['tr','st','dt'], data = {};
     $.each(inputs, function (k, v) { data[v] = $(':input[name='+v+']').val(); });
+    // TODO add validation logic
     var params = $.param(data);
     fetchData(parseStatus, params);
 };
 
+// TODO remove jQuery dependency

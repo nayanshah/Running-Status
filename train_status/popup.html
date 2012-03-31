@@ -4,7 +4,7 @@
     <title>Running Status</title>
     <style>
         body {
-            min-width:357px;
+            min-width:200px;
             overflow-x:hidden;
         }
         label {
@@ -14,6 +14,21 @@
         }
         button {
             display: block;
+        }
+        div#running-status, div#result {
+            border: 1px solid black;
+            margin: 0 auto;
+            padding: 20px 10px;
+        }
+        div#running-status {
+            width: 200px;
+        }
+        div#result {
+            display: none;
+            width: 400px;
+        }
+        table {
+            background-color: white !important;
         }
         img {
             margin:5px;
