@@ -1,0 +1,16 @@
+{
+  "name": "Running Status",
+  "version": "0.1.0",
+  "description": "Train running status.",
+  "permissions": [
+    "http://www.trainenquiry.com/*"
+  ],
+  "icons": {
+    "48" : "sample-48.png",
+    "128" : "sample-128.png"
+  },
+  "browser_action": {
+    "default_icon": "sample-48.png",
+    "default_popup": "popup.html"
+  }
+}
