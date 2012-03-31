@@ -3,7 +3,8 @@
   "version": "0.1.0",
   "description": "Train running status.",
   "permissions": [
-    "http://www.trainenquiry.com/*"
+    "http://www.trainenquiry.com/*",
+    "http://localhost/*"
   ],
   "icons": {
     "48" : "sample-48.png",

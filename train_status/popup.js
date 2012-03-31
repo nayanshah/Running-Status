@@ -19,9 +19,8 @@ function fetchData(callback, params) {
             }
         }
     }
-    $('#result').html(url);
-    //xhr.open('GET', url, true);
-    //xhr.send();
+    xhr.open('GET', url, true);
+    xhr.send();
 };
 
 /**
@@ -32,10 +31,11 @@ function fetchData(callback, params) {
  *      request failed.
  */
 function parseStatus(data) {
+    $('#running-status').hide();
     if(data) {
-        $('#result').html(data);
+        var result = $('#Table3', $(data))
+        $('#result').html(result);
     } else {
-        $('#running-status').hide(500);
         $('#result').html('<b>Some error occured while processing the request.</b>');
     }
 };
