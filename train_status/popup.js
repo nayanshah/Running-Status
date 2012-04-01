@@ -8,7 +8,6 @@
  */
 function fetchData(callback, params) {
     var url = 'http://www.trainenquiry.com/RunningIslTrSt.aspx?' + params;
-    url = 'http://localhost/work/train/trainenquiry.html?' + params; // For development only
     var xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function(data) {
         if (xhr.readyState == 4) {
