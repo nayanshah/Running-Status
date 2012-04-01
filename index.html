@@ -19,23 +19,7 @@
             border: 1px solid black;
             margin: 0 auto;
             padding: 20px 10px;
-        }
-        div#running-status {
             width: 200px;
-        }
-        div#result {
-            display: none;
-            width: 400px;
-        }
-        table {
-            background-color: white !important;
-        }
-        img {
-            margin:5px;
-            border:2px solid black;
-            vertical-align:middle;
-            width:75px;
-            height:75px;
         }
     </style>
 
@@ -45,39 +29,13 @@
     </script>
     <!-- JavaScript and HTML must be in separate files for security. -->
     <script type="text/javascript">
-function fetchData(callback, params) {
-    var url = 'http://www.trainenquiry.com/RunningIslTrSt.aspx?' + params;
-    var xhr = new XMLHttpRequest();
-    xhr.onreadystatechange = function(data) {
-        if (xhr.readyState == 4) {
-            if (xhr.status == 200) {
-                callback(xhr.responseText);
-            } else {
-                callback(null);
-            }
-        }
-    }
-    xhr.open('GET', url, true);
-    xhr.send();
-};
-function parseStatus(data) {
-    $('#running-status').hide();
-    if(data) {
-        var result = $('#Table3', $(data))
-        $('#result').html(result);
-    } else {
-        $('#result').html('<b>Some error occured while processing the request.</b>');
-    }
-    $('#running-status').hide();
-    $('#result').show();
-};
-function RunningStatus() {
-    var inputs = ['tr','st','dt'], data = {};
-    $.each(inputs, function (k, v) { data[v] = $(':input[name='+v+']').val(); });
-    // TODO add validation logic
-    var params = $.param(data);
-    fetchData(parseStatus, params);
-};
+        function RunningStatus() {
+            var inputs = ['tr','st','dt'], data = {};
+            $.each(inputs, function (k, v) { data[v] = $(':input[name='+v+']').val(); });
+            // TODO add validation logic
+            var url = 'http://www.trainenquiry.com/RunningIslTrSt.aspx?' + $.param(data);
+            document.location = url;
+        };
     </script>
 </head>
 <body>
@@ -661,6 +619,5 @@ function RunningStatus() {
         <label for="dt"> Date <input type="date" name="dt" /> </label>
         <button onclick="RunningStatus(); return false;">Submit</button>
     </div>
-<div id="result"></div>
 </body>
 </html>
