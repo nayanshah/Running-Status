@@ -1,10 +1,14 @@
 # Train Running Status (Chrome Extension / Web app)
 
-Download : https://github.com/nayanshah/Running-Status/blob/master/train_status.crx
+## Download
+
+Chrome extension : https://github.com/nayanshah/Running-Status/blob/master/train_status.crx?raw=true
+
+Web app demo : http://nayanshah.github.com/Running-Status/
 
 ## Purpose
 
-A convenient was to get the current running status of any train.
+A convenient way to get the current running status of any train instead of the advertisement driven http://www.trainenquiry.com/.
 
 ## Description
 
