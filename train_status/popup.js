@@ -1,14 +1,16 @@
 /**
- * Performs an XMLHttpRequest to Train Enquiry to get running status
+ * Performs an XMLHttpRequest (AJAX)
  *
  * @param callback Function If the response from fetching url has a
- *     HTTP status of 200, this function is called with a JSON decoded
- *     response.  Otherwise, this function is called with null.
- * @param params String The url encoded parameters
+ *     HTTP status of 200, this function is called with response text.
+ *     Otherwise, this function is called with null.
+ * @param url String The url encoded parameters
+ * @param type String Type of request : GET or POST. Default is GET.
  */
-function fetchData(callback, params) {
-    var url = 'http://www.trainenquiry.com/RunningIslTrSt.aspx?' + params;
-    var xhr = new XMLHttpRequest();
+function ajax(callback, url, type) {
+    var xhr = new XMLHttpRequest(),
+        type = type || 'GET';
+
     xhr.onreadystatechange = function(data) {
         if (xhr.readyState == 4) {
             if (xhr.status == 200) {
@@ -18,27 +20,45 @@ function fetchData(callback, params) {
             }
         }
     }
-    xhr.open('GET', url, true);
+    xhr.open(type, url, true);
     xhr.send();
 };
 
 /**
- * Parses response from Train Enquiry and displays the required running
- * status
+ * Parses response an HTML string and returns a Document Fragment
+ *
+ * @param HTMLString String The string of HTML to be parsed.
+ */
+function parseHTML(HTMLString) {
+    var range = document.createRange();
+    range.selectNode(document.body);
+
+    // Parse the html string
+    // Not sure if its part of DOM spec but works.
+    var parsedHTML = range.createContextualFragment(HTMLString);
+
+    return parsedHTML;
+};
+
+/**
+ * Show the running status
  *
  * @param data Object Response recieved from the server. Null if the
  *      request failed.
  */
-function parseStatus(data) {
-    $('#running-status').hide();
+function showStatus(data) {
+    var result = document.getElementById('result');
+
     if(data) {
-        var result = $('#Table3', $(data))
-        $('#result').html(result);
+        var status = parseHTML(data).querySelector('#Table3');
+        result.appendChild(status);
     } else {
-        $('#result').html('<b>Some error occured while processing the request.</b>');
+        result = document.getElementById('error');
     }
-    $('#running-status').hide();
-    $('#result').show();
+
+    // Show status and hide the form
+    result.classList.remove('hidden');
+    document.getElementById('running-status').classList.add('hidden');
 };
 
 /**
@@ -46,12 +66,16 @@ function parseStatus(data) {
  * and calls fetchData with those.
  *
  */
-function RunningStatus() {
-    var inputs = ['tr','st','dt'], data = {};
-    $.each(inputs, function (k, v) { data[v] = $(':input[name='+v+']').val(); });
-    // TODO add validation logic
-    var params = $.param(data);
-    fetchData(parseStatus, params);
-};
+function getRunningStatus() {
+    var inputs = document.getElementsByClassName('inp'), params = [];
 
-// TODO remove jQuery dependency
+    // TODO add validation logic
+    for(var i = 0; i<inputs.length; i++) {
+        var inp = inputs[i],
+            str = inp.name + '=' + inp.value;
+        params.push(str);
+    }
+
+    var url = 'http://www.trainenquiry.com/RunningIslTrSt.aspx?' + params.join('&');
+    ajax(showStatus, url);
+};

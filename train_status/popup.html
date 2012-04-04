@@ -1,6 +1,6 @@
 <!doctype html>
 <html>
-  <head>
+<head>
     <title>Running Status</title>
     <style>
         body {
@@ -15,42 +15,31 @@
         button {
             display: block;
         }
-        div#running-status, div#result {
+        div#running-status, div#result, div#error {
             border: 1px solid black;
             margin: 0 auto;
             padding: 20px 10px;
+            width: 400px;
         }
         div#running-status {
             width: 200px;
         }
-        div#result {
-            display: none;
-            width: 400px;
-        }
         table {
             background-color: white !important;
         }
-        img {
-            margin:5px;
-            border:2px solid black;
-            vertical-align:middle;
-            width:75px;
-            height:75px;
+        .hidden {
+            display: none;
         }
     </style>
 
-    <script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js'></script>
-    <script type="text/javascript">
-    if (typeof jQuery == 'undefined') { document.write(unescape("%3Cscript src='jquery.js' type='text/javascript'%3E%3C/script%3E")); }
-    </script>
     <!-- JavaScript and HTML must be in separate files for security. -->
     <script src="popup.js"></script>
 </head>
 <body>
     <div id="running-status">
-        <label for="tr"> Train Num <input type="text" name="tr" id="tr" /> </label>
+        <label for="tr"> Train Num <input type="text" name="tr" id="tr" class="inp" /> </label>
         <label for="st"> Station
-            <select id="st" size="1" name="st" >
+            <select id="st" size="1" name="st" class="inp">
                 <option value="ADI">Ahmedabad</option>
                 <option value="ALD">Allahabad</option>
                 <option value="SBC">Bangalore</option>
@@ -624,10 +613,11 @@
                 <option value="YPR">Yesvantpur Jn</option>
             </select>
         </label>
-        <label for="dt"> Date <input type="text" name="dt" />  (eg. 26/01/2012) </label>
+        <label for="dt"> Date <input type="text" name="dt" class="inp" />  (eg. 26/01/2012) </label>
 
-        <button onclick="RunningStatus(); return false;">Submit</button>
+        <button onclick="getRunningStatus(); return false;">Submit</button>
     </div>
-<div id="result"></div>
+    <div id="result" class="hidden"> </div>
+    <div id="error" class="hidden"> <b> Some unexpected error has occured. Please try again later or report issue. </b></div>
 </body>
 </html>
