@@ -1,7 +1,7 @@
 {
-  "name": "Running Status",
-  "version": "0.1.0",
-  "description": "Train running status.",
+  "name": "Train Running Status",
+  "version": "1.0.0",
+  "description": "Easy to get train running status instead of the advertisement driven http://www.trainenquiry.com/",
   "permissions": [
     "http://www.trainenquiry.com/*"
   ],
