@@ -1,6 +1,6 @@
 <!doctype html>
 <html>
-  <head>
+<head>
     <title>Running Status</title>
     <style>
         body {
@@ -15,7 +15,7 @@
         button {
             display: block;
         }
-        div#running-status, div#result {
+        div#running-status {
             border: 1px solid black;
             margin: 0 auto;
             padding: 20px 10px;
@@ -23,26 +23,24 @@
         }
     </style>
 
-    <script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js'></script>
     <script type="text/javascript">
-    if (typeof jQuery == 'undefined') { document.write(unescape("%3Cscript src='jquery.js' type='text/javascript'%3E%3C/script%3E")); }
-    </script>
-    <!-- JavaScript and HTML must be in separate files for security. -->
-    <script type="text/javascript">
-        function RunningStatus() {
-            var inputs = ['tr','st','dt'], data = {};
-            $.each(inputs, function (k, v) { data[v] = $(':input[name='+v+']').val(); });
-            // TODO add validation logic
-            var url = 'http://www.trainenquiry.com/RunningIslTrSt.aspx?' + $.param(data);
+        function getRunningStatus() {
+            var inputs = document.getElementsByClassName('inp'), params = [];
+            for(var i = 0; i<inputs.length; i++) {
+                var inp = inputs[i],
+                    str = inp.name + '=' + inp.value;
+                params.push(str);
+            }
+            var url = 'http://www.trainenquiry.com/RunningIslTrSt.aspx?' + params.join('&');
             document.location = url;
         };
     </script>
 </head>
 <body>
     <div id="running-status">
-        <label for="tr"> Train Num <input type="text" name="tr" id="tr" /> </label>
+        <label for="tr"> Train Num <input type="text" name="tr" id="tr" class="inp" /> </label>
         <label for="st"> Station
-            <select id="st" size="1" name="st" >
+            <select id="st" size="1" name="st" class="inp">
                 <option value="ADI">Ahmedabad</option>
                 <option value="ALD">Allahabad</option>
                 <option value="SBC">Bangalore</option>
@@ -616,8 +614,8 @@
                 <option value="YPR">Yesvantpur Jn</option>
             </select>
         </label>
-        <label for="dt"> Date <input type="date" name="dt" /> </label>
-        <button onclick="RunningStatus(); return false;">Submit</button>
+        <label for="dt"> Date <input type="text" name="dt" class="inp" />  (eg. 26/01/2012) </label>
+        <button onclick="getRunningStatus(); return false;">Submit</button>
     </div>
 </body>
 </html>
